@@ -50,9 +50,6 @@ RUN mkdir -p /app/data && npm run build
 # ── Runner base ────────────────────────────────────────────────────────────
 FROM base AS runner-base
 
-# Cloudron base image has no /bin/bash — force /bin/sh
-SHELL ["/bin/sh", "-c"]
-
 LABEL org.opencontainers.image.title="omniroute" \
   org.opencontainers.image.description="Unified AI proxy — route any LLM through one endpoint" \
   org.opencontainers.image.url="https://omniroute.online" \
