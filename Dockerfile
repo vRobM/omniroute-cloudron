@@ -50,10 +50,10 @@ RUN mkdir -p /app/data && npm run build
 # ── Runner base ────────────────────────────────────────────────────────────
 FROM base AS runner-base
 
-# Cloudron base image may lack /bin/bash — install it
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends bash \
-  && rm -rf /var/lib/apt/lists/*
+# Cloudron base image sets SHELL to /bin/bash but it may not exist.
+# Override to /bin/sh (guaranteed on Debian) and create symlink as fallback.
+SHELL ["/bin/sh", "-c"]
+RUN ln -sf /usr/bin/bash /bin/bash 2>/dev/null || true
 
 LABEL org.opencontainers.image.title="omniroute" \
   org.opencontainers.image.description="Unified AI proxy — route any LLM through one endpoint" \
