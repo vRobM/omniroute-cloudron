@@ -40,7 +40,7 @@ ENV OMNIROUTE_USE_TURBOPACK=0
 # Keep MITM manager as graceful stub in Docker (no host DNS/cert access)
 ENV OMNIROUTE_MITM_STUB=1
 
-ARG OMNIROUTE_BUILD_MEMORY_MB=3072
+ARG OMNIROUTE_BUILD_MEMORY_MB=6144
 ENV NODE_OPTIONS="--max-old-space-size=${OMNIROUTE_BUILD_MEMORY_MB}"
 
 # Copy full source and build
