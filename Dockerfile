@@ -50,8 +50,10 @@ RUN mkdir -p /app/data && npm run build
 # ── Runner base ────────────────────────────────────────────────────────────
 FROM base AS runner-base
 
-# Cloudron base defaults Docker to /bin/bash which doesn't exist — force /bin/sh
-SHELL ["/bin/sh", "-c"]
+# Cloudron base image may lack /bin/bash — install it
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends bash \
+  && rm -rf /var/lib/apt/lists/*
 
 LABEL org.opencontainers.image.title="omniroute" \
   org.opencontainers.image.description="Unified AI proxy — route any LLM through one endpoint" \
