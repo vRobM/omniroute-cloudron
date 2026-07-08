@@ -8,8 +8,8 @@ LABEL org.opencontainers.image.title="omniroute" \
   org.opencontainers.image.source="https://github.com/diegosouzapw/OmniRoute" \
   org.opencontainers.image.licenses="MIT"
 
-# System deps for build and runtime
-RUN apt-get update && apt-get upgrade -y \
+# System deps for build and runtime (skip upgrade to speed up build)
+RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates curl git python3 make g++ \
   && rm -rf /var/lib/apt/lists/*
