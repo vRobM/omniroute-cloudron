@@ -9,16 +9,23 @@ RUN apt-get update && apt-get upgrade -y \
 FROM node:24-trixie-slim AS builder
 
 RUN apt-get update && apt-get upgrade -y \
-  && apt-get install -y --no-install-recommends python3 make g++ \
+  && apt-get install -y --no-install-recommends python3 make g++ git \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY omniroute-source/package*.json ./
-COPY omniroute-source/open-sse/package.json ./open-sse/package.json
-COPY omniroute-source/scripts/build/postinstall.mjs ./scripts/build/postinstall.mjs
-COPY omniroute-source/scripts/build/postinstallSupport.mjs ./scripts/build/postinstallSupport.mjs
-COPY omniroute-source/scripts/build/native-binary-compat.mjs ./scripts/build/native-binary-compat.mjs
+# Clone upstream source (not in git repo to avoid exposing OAuth credentials)
+ARG UPSTREAM_REPO=https://github.com/diegosouzapw/OmniRoute.git
+ARG UPSTREAM_REF=main
+RUN git clone --depth 1 --branch ${UPSTREAM_REF} ${UPSTREAM_REPO} /tmp/omniroute-src
+
+# Copy package manifests first for layer caching
+RUN cp /tmp/omniroute-src/package*.json ./ \
+  && cp /tmp/omniroute-src/open-sse/package.json ./open-sse/ \
+  && mkdir -p scripts/build \
+  && cp /tmp/omniroute-src/scripts/build/postinstall.mjs ./scripts/build/ \
+  && cp /tmp/omniroute-src/scripts/build/postinstallSupport.mjs ./scripts/build/ \
+  && cp /tmp/omniroute-src/scripts/build/native-binary-compat.mjs ./scripts/build/
 
 ENV NPM_CONFIG_LEGACY_PEER_DEPS=true
 
@@ -36,7 +43,8 @@ ENV OMNIROUTE_MITM_STUB=1
 ARG OMNIROUTE_BUILD_MEMORY_MB=4096
 ENV NODE_OPTIONS="--max-old-space-size=${OMNIROUTE_BUILD_MEMORY_MB}"
 
-COPY omniroute-source/ ./
+# Copy full source and build
+RUN cp -a /tmp/omniroute-src/. ./ && rm -rf /tmp/omniroute-src/.git
 RUN mkdir -p /app/data && npm run build
 
 # ── Runner base ────────────────────────────────────────────────────────────
@@ -67,7 +75,7 @@ ENV OMNIROUTE_MIGRATIONS_DIR=/app/migrations
 # Healthcheck script
 COPY --from=builder /app/scripts/dev/healthcheck.mjs ./healthcheck.mjs
 
-# Install build deps for any runtime native rebuilds
+# Install runtime native rebuild deps (better-sqlite3 may need them)
 RUN apt-get update \
   && apt-get install -y --no-install-recommends python3 make g++ \
   && rm -rf /var/lib/apt/lists/*
