@@ -35,12 +35,12 @@ RUN test -f package-lock.json \
   && npm rebuild better-sqlite3 \
   && node -e "require('better-sqlite3')(':memory:').close()"
 
-# Build with Turbopack (stable in Next 16)
-ENV OMNIROUTE_USE_TURBOPACK=1
+# Build with webpack (Turbopack may OOM on build service with limited memory)
+ENV OMNIROUTE_USE_TURBOPACK=0
 # Keep MITM manager as graceful stub in Docker (no host DNS/cert access)
 ENV OMNIROUTE_MITM_STUB=1
 
-ARG OMNIROUTE_BUILD_MEMORY_MB=4096
+ARG OMNIROUTE_BUILD_MEMORY_MB=3072
 ENV NODE_OPTIONS="--max-old-space-size=${OMNIROUTE_BUILD_MEMORY_MB}"
 
 # Copy full source and build
