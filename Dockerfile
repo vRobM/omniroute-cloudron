@@ -9,7 +9,7 @@ RUN apt-get update && apt-get upgrade -y \
 FROM node:24-trixie-slim AS builder
 
 RUN apt-get update && apt-get upgrade -y \
-  && apt-get install -y --no-install-recommends python3 make g++ git \
+  && apt-get install -y --no-install-recommends python3 make g++ git ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
