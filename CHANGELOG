@@ -1,0 +1,12 @@
+## 0.1.0 (2026-07-08)
+
+- Initial Cloudron release based on OmniRoute v3.8.46
+- Cloudron OIDC integration for single sign-on
+- Redis addon for rate limiting
+- Local storage addon for SQLite persistence
+- Health check endpoint configured
+- 237+ providers, 90+ free tiers
+- Token compression (RTK + Caveman)
+- Auto-fallback and combo routing
+- MCP Server (94 tools)
+- A2A Protocol support
