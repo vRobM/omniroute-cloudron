@@ -46,10 +46,10 @@ RUN test -f package-lock.json \
   && npm rebuild better-sqlite3 \
   && node -e "require('better-sqlite3')(':memory:').close()"
 
-# Build configuration
-ENV OMNIROUTE_USE_TURBOPACK=0
+# Build configuration — Turbopack uses less memory than webpack
+ENV OMNIROUTE_USE_TURBOPACK=1
 ENV OMNIROUTE_MITM_STUB=1
-ENV NODE_OPTIONS="--max-old-space-size=6144"
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Copy full source and build
 RUN cp -a /tmp/omniroute-src/. ./ && rm -rf /tmp/omniroute-src/.git
