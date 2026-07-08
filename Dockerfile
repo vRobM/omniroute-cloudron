@@ -20,9 +20,9 @@ ARG UPSTREAM_REF=main
 RUN git clone --depth 1 --branch ${UPSTREAM_REF} ${UPSTREAM_REPO} /tmp/omniroute-src
 
 # Copy package manifests first for layer caching
-RUN cp /tmp/omniroute-src/package*.json ./ \
+RUN mkdir -p open-sse scripts/build \
+  && cp /tmp/omniroute-src/package*.json ./ \
   && cp /tmp/omniroute-src/open-sse/package.json ./open-sse/ \
-  && mkdir -p scripts/build \
   && cp /tmp/omniroute-src/scripts/build/postinstall.mjs ./scripts/build/ \
   && cp /tmp/omniroute-src/scripts/build/postinstallSupport.mjs ./scripts/build/ \
   && cp /tmp/omniroute-src/scripts/build/native-binary-compat.mjs ./scripts/build/
