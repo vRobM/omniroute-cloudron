@@ -48,6 +48,54 @@
       "creationDate": "2026-07-08T00:00:00.000Z",
       "ts": "1751923200000",
       "publishState": "testing"
+    },
+    "0.3.0": {
+      "dockerImage": "docker.io/robius/omniroute:latest",
+      "manifest": {
+        "id": "com.toldyouso.omniroute",
+        "title": "OmniRoute",
+        "tagline": "Free AI gateway: one endpoint, 237+ providers, 90+ free",
+        "description": "file://DESCRIPTION.md",
+        "author": "diegosouzapw",
+        "contactEmail": "vrobm@users.noreply.github.com",
+        "website": "https://github.com/diegosouzapw/OmniRoute",
+        "documentationUrl": "https://github.com/diegosouzapw/OmniRoute/wiki",
+        "version": "0.3.0",
+        "upstreamVersion": "3.8.46",
+        "tags": ["ai", "agent", "router", "gateway", "llm", "openai-compatible"],
+        "httpPort": 20128,
+        "healthCheckPath": "/api/monitoring/health",
+        "manifestVersion": 2,
+        "minBoxVersion": "9.1.0",
+        "memoryLimit": 1073741824,
+        "icon": "file://icon.png",
+        "packagerName": "Robi",
+        "packagerUrl": "https://github.com/vRobM",
+        "addons": {
+          "localstorage": {
+            "sqlite": {
+              "paths": ["/app/data/storage.sqlite"]
+            }
+          },
+          "redis": {
+            "noPassword": true
+          },
+          "oidc": {
+            "loginRedirectUri": "/api/auth/oidc/callback",
+            "logoutRedirectUri": "/",
+            "tokenSignatureAlgorithm": "RS256"
+          }
+        },
+        "postInstallMessage": "file://POSTINSTALL.md",
+        "mediaLinks": [
+          "https://raw.githubusercontent.com/diegosouzapw/OmniRoute/main/docs/screenshots/MainOmniRoute.png"
+        ],
+        "iconUrl": "https://raw.githubusercontent.com/diegosouzapw/OmniRoute/main/public/logo.png",
+        "changelog": "file://CHANGELOG"
+      },
+      "creationDate": "2026-07-09T00:00:00.000Z",
+      "ts": "1752096000000",
+      "publishState": "testing"
     }
   }
 }
