@@ -62,7 +62,7 @@ ENV HOSTNAME=0.0.0.0
 ENV OMNIROUTE_MEMORY_MB=512
 ENV NODE_OPTIONS="--max-old-space-size=512"
 ENV DATA_DIR=/app/data
-ENV OMNIROUTE_MIGRATIONS_DIR=/app/migrations
+ENV OMNIROUTE_MIGRATIONS_DIR=/app/.build/next/standalone/migrations
 
 # Cloudron expects gosu, drop privileges via entrypoint
 COPY start.sh CloudronManifest.json ./
