@@ -65,8 +65,7 @@ ENV DATA_DIR=/app/data
 ENV OMNIROUTE_MIGRATIONS_DIR=/app/migrations
 
 # Cloudron expects gosu, drop privileges via entrypoint
-COPY start.sh ./
-COPY CloudronManifest.json /
+COPY start.sh CloudronManifest.json ./
 RUN chmod +x start.sh
 
 EXPOSE 20128
