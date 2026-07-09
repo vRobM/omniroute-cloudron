@@ -2,6 +2,7 @@
   "stable": true,
   "versions": {
     "0.1.0": {
+      "dockerImage": "docker.io/robius/omniroute:0.1.0",
       "manifest": {
         "id": "com.toldyouso.omniroute",
         "title": "OmniRoute",
@@ -18,7 +19,7 @@
         "healthCheckPath": "/api/monitoring/health",
         "manifestVersion": 2,
         "minBoxVersion": "9.1.0",
-        "memoryLimit": 524288000,
+        "memoryLimit": 1073741824,
         "icon": "file://icon.png",
         "packagerName": "Robi",
         "packagerUrl": "https://github.com/vRobM",
