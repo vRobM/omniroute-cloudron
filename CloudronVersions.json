@@ -2,9 +2,9 @@
   "stable": true,
   "versions": {
     "0.1.0": {
-      "dockerImage": "docker.io/robius/omniroute:0.1.0",
       "manifest": {
         "id": "com.toldyouso.omniroute",
+        "dockerImage": "docker.io/robius/omniroute:0.1.0",
         "title": "OmniRoute",
         "tagline": "Free AI gateway: one endpoint, 237+ providers, 90+ free",
         "description": "file://DESCRIPTION.md",
@@ -50,9 +50,9 @@
       "publishState": "testing"
     },
     "0.3.0": {
-      "dockerImage": "docker.io/robius/omniroute:latest",
       "manifest": {
         "id": "com.toldyouso.omniroute",
+        "dockerImage": "docker.io/robius/omniroute:latest",
         "title": "OmniRoute",
         "tagline": "Free AI gateway: one endpoint, 237+ providers, 90+ free",
         "description": "file://DESCRIPTION.md",
