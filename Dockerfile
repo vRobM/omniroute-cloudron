@@ -64,6 +64,11 @@ ENV NODE_OPTIONS="--max-old-space-size=512"
 ENV DATA_DIR=/app/data
 ENV OMNIROUTE_MIGRATIONS_DIR=/app/.build/next/standalone/migrations
 
+# OmniRoute uses distDir=.build/next, so standalone output nests .next inside
+# .build/next/standalone/.build/next/. server.js expects it at .next/ relative
+# to standalone root — symlink so it resolves correctly.
+RUN ln -s .build/next /app/.build/next/standalone/.next
+
 # Cloudron expects gosu, drop privileges via entrypoint
 COPY start.sh CloudronManifest.json ./
 RUN chmod +x start.sh
