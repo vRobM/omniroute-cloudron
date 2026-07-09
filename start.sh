@@ -44,8 +44,9 @@ if [[ -n "${CLOUDRON_OIDC_DISCOVERY_URL:-}" ]]; then
 fi
 
 # ── Start the application ──────────────────────────────────────────────
-cd /app
+# OmniRoute's standalone output is in .build/next/standalone/
+cd /app/.build/next/standalone
 
 # Cloudron provides gosu for privilege drop
 # The upstream app uses dev/run-standalone.mjs which spawns server-ws.mjs
-exec gosu cloudron:cloudron node scripts/dev/run-standalone.mjs
+exec gosu cloudron:cloudron node /app/scripts/dev/run-standalone.mjs

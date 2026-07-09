@@ -71,6 +71,6 @@ RUN chmod +x start.sh
 EXPOSE 20128
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-  CMD ["node", "scripts/dev/healthcheck.mjs"]
+  CMD ["node", "/app/scripts/dev/healthcheck.mjs"]
 
 CMD ["./start.sh"]
